@@ -1,10 +1,11 @@
 /**
  * NOTES:
  * There is some decisions one has to make under the hood when creating a hash table.
- * The Dev can have a big impact on the performance of the table by what they use to operate their hashes
+ * The Dev can have a big impact on the performance of the table by what they use to operate their hashes.
+ * This is a great resource: https://www.educative.io/blog/data-strucutres-hash-table-javascript
  */
 class HashTable {
-  table = new Array(3); // small table to show off resize in case of collusion
+  table = new Array(3); // small table to show off resize in case of collisions
   numItems = 0;
 
   resize = () => {
@@ -17,7 +18,7 @@ class HashTable {
           const idx = this.hashStringToInt(key, newTable.length);
 
           if (newTable[idx]) {
-            // CHAINING to prevent collusion
+            // CHAINING to prevent collisions
             newTable[idx].push([key, value]);
           } else {
             newTable[idx] = [[key, value]];
@@ -56,7 +57,7 @@ class HashTable {
     }
     const idx = this.hashStringToInt(key, this.table.length);
     if (this.table[idx]) {
-      // CHAINING to prevent collusion
+      // CHAINING to prevent collisions
       this.table[idx].push([key, value]);
     } else {
       this.table[idx] = [[key, value]];
@@ -70,9 +71,9 @@ console.log(myTable.table.length);
 myTable.setItem("lastName", "tim");
 console.log(myTable.table.length);
 myTable.setItem("age", 5);
-console.log(myTable.table.length); // NOTICE THE LENGTH CHANGE (chaining  resize  to solve collusion)
+console.log(myTable.table.length); // NOTICE THE LENGTH CHANGE (chaining  resize  to solve collisions)
 myTable.setItem("dob", "1/2/3");
-console.log(myTable.table[0]); // elements collusion on 1st index
+console.log(myTable.table[0]); // elements collisions on 1st index
 console.log(myTable.table.length);
 console.log(myTable.table);
 console.log(myTable.getItem("firstName"));
